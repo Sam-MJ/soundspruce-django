@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <link rel="stylesheet" href="./Styles/layout.css">
+
+    {% if title %}
+        <title>{{title}} - SoundSpruce</title>
+    {% else %}
+        <title>SoundSpruce</title>
+    {% endif %}
+</head>
+<body>
+    <header>
+        {% include "pages/header.html" %}
+    </header>
+
+    <main>
+        {% block content %} {% endblock %}
+    </main>
+
+    <footer>
+        {% include "pages/footer.html" %}
+    </footer>
+</body>
+</html>
