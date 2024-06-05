@@ -1,16 +1,17 @@
 from django.shortcuts import render
 
+from django.views.generic import TemplateView
+
 # Create your views here.
 
 
-def index(request):
-    return render(request, "pages/index.html")
+class HomeView(TemplateView):
+    template_name = "pages/home.html"
 
 
-def about(request):
-    title = "About"
-    context = {"title": title}
-    return render(request, "pages/about.html", context)
+class AboutView(TemplateView):
+    template_name = "pages/about.html"
+    extra_context = {"title": "About"}
 
 
 def products():
