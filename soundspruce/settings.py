@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "pages.apps.PagesConfig",
+    "contact.apps.ContactConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -55,7 +56,7 @@ ROOT_URLCONF = "soundspruce.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "soundspruce/templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
