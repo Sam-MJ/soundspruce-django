@@ -1,9 +1,12 @@
 from django import forms
 from django.core.validators import EmailValidator
 
+from contact.models import Enquiry
 
-class ContactForm(forms.Form):
-    name = forms.CharField(required=True)
-    email = forms.EmailField(required=True, validators=[EmailValidator])
-    subject = forms.CharField(required=False)
-    message = forms.CharField(widget=forms.Textarea, required=True)
+
+class ContactForm(forms.ModelForm):
+
+    class Meta:
+        model = Enquiry
+        fields = ["name", "email", "subject", "message"]
+        widgets = {"message": forms.widgets.Textarea}

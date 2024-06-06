@@ -56,7 +56,7 @@ ROOT_URLCONF = "soundspruce.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "soundspruce/templates"],
+        "DIRS": [BASE_DIR / "soundspruce/templates/"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
-{% block form %}
-<form action="/contact/" method="post">
+{% block content %}
+<h1>Contact</h1>
+<form action="{% url 'contact:contact' %}" method="post">
+
     {% csrf_token %}
     {% for field in form %}
         <div class="fieldWrapper">
@@ -10,4 +12,4 @@
     {% endfor %}
     <input type="submit" value="Submit">
  </form>
-{% endblock form %}
+{% endblock content %}
