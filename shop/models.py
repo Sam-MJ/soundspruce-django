@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.urls import reverse
 
 CATEGORY_CHOICES = ("S", "Software")
 
@@ -13,6 +14,12 @@ class Product(models.Model):
     description = models.TextField()
     image = models.ImageField()
     slug = models.SlugField(unique=True)
+
+    def __str__(self) -> str:
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("product-detail", args=[str(self.id)])
 
 
 class ProductInstance(models.Model):

@@ -8,3 +8,8 @@ from . import models
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
     pass
+
+
+@admin.register(models.ProductInstance)
+class ProductInstanceAdmin(admin.ModelAdmin):
+    pass
