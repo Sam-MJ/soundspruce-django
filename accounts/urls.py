@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    # this is so you can log in with email, change to auth_views.LoginView for default
     path("login/", views.LoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path(
@@ -31,11 +32,11 @@ urlpatterns = [
         auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
-    path("register/", views.register, name="register"),
+    path("register/", views.UserRegisterView.as_view(), name="register"),
     path(
         "register/confirm/<uidb64>/<token>/",
         views.RegisterConfirmView.as_view(),
         name="register_confirm",
     ),
-    path("users/<int:pk>/", views.UserDetailView, name="user_detail"),
+    path("users/<int:pk>/", views.UserDetailView.as_view(), name="user_detail"),
 ]

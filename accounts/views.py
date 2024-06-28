@@ -10,6 +10,7 @@ from accounts.models import User
 # Create your views here.
 
 
+# this is so you can log in with an email
 class LoginView(auth_views.LoginView):
     form_class = forms.LoginForm
 
