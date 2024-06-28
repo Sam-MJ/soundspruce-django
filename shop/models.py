@@ -13,14 +13,14 @@ class Product(models.Model):
     discount_price = models.DecimalField(max_digits=6, decimal_places=2)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
     description = models.TextField()
-    demo_video = models.URLField()
+    demo_video = models.URLField(blank=True)
     slug = models.SlugField(unique=True)
 
     def __str__(self) -> str:
         return self.name
 
     def get_absolute_url(self):
-        return reverse("product-detail", args=[str(self.id)])
+        return reverse("shop:product-detail", args=[self.slug])
 
 
 class ProductInstance(models.Model):
@@ -30,3 +30,10 @@ class ProductInstance(models.Model):
     purchaser = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
     )
+
+    @property
+    def product_name(self):
+        return self.product.name
+
+    def get_absolute_url(self):
+        return reverse("product-instance-detail", args=[str(self.serial_number)])

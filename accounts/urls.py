@@ -3,8 +3,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # this is so you can log in with email, change to auth_views.LoginView for default
-    path("login/", views.LoginView.as_view(), name="login"),
+    # auth_views.LoginView for default, views.LogicView and uncomment LoginView in views for email?
+    path("login/", auth_views.LoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path(
         "password_change/",

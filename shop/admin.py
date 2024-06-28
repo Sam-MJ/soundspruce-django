@@ -12,4 +12,10 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(models.ProductInstance)
 class ProductInstanceAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ("purchase_date",)
+    list_display = ("product", "purchaser", "purchase_date", "serial_number")
+
+
+class ProductInstanceInline(admin.TabularInline):
+    extra = 0
+    model = models.ProductInstance

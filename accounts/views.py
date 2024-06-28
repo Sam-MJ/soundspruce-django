@@ -11,8 +11,8 @@ from accounts.models import User
 
 
 # this is so you can log in with an email
-class LoginView(auth_views.LoginView):
-    form_class = forms.LoginForm
+""" class LoginView(auth_views.LoginView):
+    form_class = forms.LoginForm """
 
 
 class PasswordResetView(auth_views.PasswordResetView):
