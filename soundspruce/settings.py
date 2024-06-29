@@ -31,6 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # my apps
+    "pages.apps.PagesConfig",
+    "contact.apps.ContactConfig",
+    "shop.apps.ShopConfig",
+    "accounts.apps.AccountsConfig",
+    # settings
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -38,11 +44,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
-    # my apps
-    "pages.apps.PagesConfig",
-    "contact.apps.ContactConfig",
-    "shop.apps.ShopConfig",
-    "accounts.apps.AccountsConfig",
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,5 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.User"
+
+LOGIN_REDIRECT_URL = "pages:home"
