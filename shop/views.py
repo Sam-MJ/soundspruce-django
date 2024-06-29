@@ -18,5 +18,12 @@ class ProductDetailView(generic.DetailView):
     model = Product
 
 
-class ProductInstanceView(LoginRequiredMixin, generic.DetailView):
+""" class ProductInstanceView(LoginRequiredMixin, generic.DetailView):
+    model = ProductInstance """
+
+
+class ProductInstanceList(LoginRequiredMixin, generic.ListView):
     model = ProductInstance
+
+    def get_queryset(self) -> QuerySet[Any]:
+        return ProductInstance.objects.filter(purchaser=self.request.user)

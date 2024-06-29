@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>My Products</h1>
+
+    {% if productinstance_list %}
+    <ul>
+
+      {% for productinst in productinstance_list %}
+      <li>
+        <a href="{% url 'shop:product-detail' productinst.product.slug %}">{{ productinst.product.name }}</a>
+        (Serial Number: {{ productinst.serial_number}}, Purchase Date: {{ productinst.purchase_date|date:"SHORT_DATE_FORMAT"}})
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>You own no products... YET!</p>
+    {% endif %}
+{% endblock %}

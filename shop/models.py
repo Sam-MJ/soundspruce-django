@@ -31,9 +31,5 @@ class ProductInstance(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
     )
 
-    @property
-    def product_name(self):
-        return self.product.name
-
     def get_absolute_url(self):
         return reverse("product-instance-detail", args=[str(self.serial_number)])
