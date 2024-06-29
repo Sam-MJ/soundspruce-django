@@ -6,12 +6,12 @@ app_name = "shop"
 
 urlpatterns = [
     path("", views.ProductListView.as_view(), name="shop"),
-    path("<slug:slug>/", views.ProductDetailView.as_view(), name="product-detail"),
     path(
-        "ibrary",
+        "library/",
         views.ProductInstanceList.as_view(),
         name="product-instance-list",
     ),
+    path("<slug:slug>/", views.ProductDetailView.as_view(), name="product-detail"),
 ]
 # this isn't really needed for now, maybe later.
 """ path(
