@@ -9,7 +9,7 @@ from django.forms import (
 from accounts.models import User
 
 
-# this is so you can log in with an email
+# this is so you can log in with an email, not used
 class LoginForm(AuthenticationForm):
     username = EmailField(
         widget=EmailInput(attrs={"autofocus": True, "autocomplete": "email"})
@@ -17,8 +17,7 @@ class LoginForm(AuthenticationForm):
 
 
 class UserRegisterForm(UserCreationForm):
-    email = EmailField()
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "email")
+        fields = ("username", "first_name", "last_name", "email")

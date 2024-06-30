@@ -15,6 +15,7 @@ class Product(models.Model):
     description = models.TextField()
     demo_video = models.URLField(blank=True)
     slug = models.SlugField(unique=True)
+    file = models.FileField(blank=True)
 
     def __str__(self) -> str:
         return self.name

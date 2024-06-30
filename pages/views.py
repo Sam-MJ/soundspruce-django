@@ -12,3 +12,7 @@ class HomeView(TemplateView):
 class AboutView(TemplateView):
     template_name = "pages/about.html"
     extra_context = {"title": "About"}
+
+
+class TestView(TemplateView):
+    template_name = "pages/index.html"

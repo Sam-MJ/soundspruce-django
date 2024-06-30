@@ -8,6 +8,7 @@ from . import models
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
     pass
+    # prepopulated_fields = {"slug": ("name",)}
 
 
 @admin.register(models.ProductInstance)
