@@ -4,15 +4,15 @@
 
 {% block content %}
 <br>
-<div class="container">
-<h1>Contact</h1>
-<form action="{% url 'contact:contact' %}" method="post">
+<div class="container-md">
+    <h1>Contact</h1>
+    <form action="{% url 'contact:contact' %}" method="post">
 
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button class="btn btn-primary" type="submit">Submit</button>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-primary" type="submit">Submit</button>
 
- </form>
+    </form>
 
 </div>
 <br>
