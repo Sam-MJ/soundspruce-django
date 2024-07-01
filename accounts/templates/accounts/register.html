@@ -1,25 +1,32 @@
 {% extends "base.html" %}
 
-{% block content %}
-
 {% load crispy_forms_tags %}
 
-{% if form.user %}
-    <p>Check your email ({{ form.user.email }})</p>
-{% else %}
-    <h1>Create an account</h1>
+{% block content %}
 
-    <form method="post" action="{% url 'register' %}">
+<br>
 
-        {{ form|crispy }}
+<div class="container">
 
-        <input type="submit" value="Continue">
+    {% if form.user %}
+        <p>Check your email ({{ form.user.email }})</p>
+    {% else %}
+        <h1>Create an account</h1>
 
-        <input type="hidden" name="next" value="{{ next }}">
+        <form method="post" action="{% url 'register' %}">
 
-        {% csrf_token %}
+            {{ form|crispy }}
 
-    </form>
-{% endif %}
+            <input type="submit" value="Continue">
 
+            <input type="hidden" name="next" value="{{ next }}">
+
+            {% csrf_token %}
+
+        </form>
+    {% endif %}
+
+</div>
+
+<br>
 {% endblock %}
