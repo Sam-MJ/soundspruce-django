@@ -1,17 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Products</h1>
+<div class="container-lg py-4">
+  <h1 class="display-5">Products</h1>
   {% if product_list %}
-    <ul>
+
+
       {% for product in product_list %}
-      <li>
-        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
-        <p>{{product.description}}</p>
-      </li>
+      <div class="card w-100 mt-2" >
+        <img src="/media/{{ product.image }}" class="card-img-top" alt="Product Image">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text">{{product.description}}</p>
+          <a href="{{ product.get_absolute_url }}" class="btn btn-primary">Get</a>
+        </div>
+      </div>
+
       {% endfor %}
-    </ul>
+
   {% else %}
     <p>There are no products.</p>
   {% endif %}
+</div>
 {% endblock %}

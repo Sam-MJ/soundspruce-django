@@ -3,9 +3,8 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<br>
-<div class="container-md">
-    <h1>Contact</h1>
+<div class="container-lg py-4">
+    <h1 class="display-5">Contact</h1>
     <form action="{% url 'contact:contact' %}" method="post">
 
         {% csrf_token %}
@@ -15,5 +14,4 @@
     </form>
 
 </div>
-<br>
 {% endblock content %}
