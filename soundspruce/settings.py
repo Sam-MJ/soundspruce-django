@@ -140,6 +140,8 @@ AUTH_USER_MODEL = "accounts.User"
 LOGIN_REDIRECT_URL = "pages:home"
 
 # serve files from this dir
+MEDIA_URL = "media/"
+
 MEDIA_ROOT = BASE_DIR / "media"
 
 

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
 <div class="container-lg py-4">
   <h1 class="display-5">Products</h1>
@@ -7,12 +8,14 @@
 
 
       {% for product in product_list %}
-      <div class="card w-100 mt-2" >
-        <img src="/media/{{ product.image }}" class="card-img-top" alt="Product Image">
+      <div class="card mt-2 align-items-center py-4" >
+        <img src="/media/{{ product.image }}" class="card-img-top shadow-drop-2-center" style="width: 690px; height: 265px;" alt="Product Image">
         <div class="card-body">
           <h5 class="card-title">{{ product.name }}</h5>
           <p class="card-text">{{product.description}}</p>
-          <a href="{{ product.get_absolute_url }}" class="btn btn-primary">Get</a>
+          <div class="d-grid gap-2 col-4 mx-auto">
+            <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-lg">Get</a>
+          </div>
         </div>
       </div>
 
