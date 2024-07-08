@@ -17,12 +17,16 @@ class ProductListView(generic.ListView):
     model = Product
 
 
-class ProductDetailView(generic.DetailView):
-    model = Product
+def product_detail_view(request, slug):
+    obj = get_object_or_404(Product, slug=slug)
 
-
-""" class ProductInstanceView(LoginRequiredMixin, generic.DetailView):
-    model = ProductInstance """
+    is_owner = False
+    if request.user.is_authenticated:
+        is_owner = (
+            request.user.purchase_set.all().filter(product=obj, completed=True).exists()
+        )
+    context = {"product": obj, "is_owner": is_owner}
+    return render(request, "shop/product_detail.html", context)
 
 
 class ProductInstanceList(LoginRequiredMixin, generic.ListView):

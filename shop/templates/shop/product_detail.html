@@ -34,12 +34,15 @@
                 <div class="fs-5 mb-5">
                     <span>${{ product.price }}</span>
                 </div>
-                    <p class="lead">Batch converter for finding and converting single variation files into neat sausage files. <br><br> This also preserves metadata (including soundminer)</p>
+                    <p class="lead">{{ product.description }}</p>
                     <div class="d-flex">
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                            <i class="bi-cart-fill me-1"></i>
-                            Buy
-                        </button>
+                        {% if is_owner %}
+                        <p>You own this product.</p>
+                        {% else %}
+                        <div>
+                            {% include 'purchases/buy-btn-form.html' with product=product %}
+                        </div>
+                        {% endif %}
                     </div>
             </div>
         </div>

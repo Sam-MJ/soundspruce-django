@@ -9,8 +9,11 @@ CATEGORY_CHOICES = (("S", "Software"),)
 # Create your models here.
 class Product(models.Model):
     name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=6, decimal_places=2)
-    discount_price = models.DecimalField(max_digits=6, decimal_places=2)
+    stripe_product_id = models.CharField(max_length=220, blank=True, null=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=99.00)
+    stripe_price = models.IntegerField(
+        blank=True, null=True, default=9900
+    )  # stripe price is price * 100
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
     description = models.TextField()
     demo_video = models.URLField(blank=True)
