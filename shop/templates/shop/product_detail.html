@@ -40,7 +40,7 @@
                         <p>You own this product.</p>
                         {% else %}
                         <div>
-                            {% include 'purchases/buy-btn-form.html' with product=product %}
+                            {% include 'purchases/buy-btn-form.html' with product=product is_auth=is_auth %}
                         </div>
                         {% endif %}
                     </div>

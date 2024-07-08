@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-def purchase_start_view():
+@login_required(login_url="accounts:login")
+def purchase_start_view(request):
     pass
 
 
