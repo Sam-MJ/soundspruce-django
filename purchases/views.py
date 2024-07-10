@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedire
 from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 import stripe.error
-from shop.models import Product, Price
+from shop.models import Product, Price, ProductInstance
 from purchases.models import Purchase
 import stripe
 import logging
@@ -87,5 +87,9 @@ def stripe_webhook(request):
 
         purchase = get_object_or_404(Purchase, stripe_checkout_session_id=session_id)
         purchase.completed = True
+        ProductInstance.objects.create(
+            product=purchase.product, purchaser=purchase.user
+        )
+        purchase.save()
 
     return HttpResponse(status=200)

@@ -3,8 +3,6 @@ from django.db import models
 from django.urls import reverse
 from django.conf import settings
 
-from purchases.models import Purchase
-
 CATEGORY_CHOICES = (("S", "Software"),)
 
 
@@ -39,11 +37,14 @@ class Price(models.Model):
 
 
 class ProductInstance(models.Model):
+    """SN and purchase date are auto-generated, product and purchaser are assigned at creation"""
+
     serial_number = models.UUIDField(default=uuid.uuid4, primary_key=True)
-    product = models.ForeignKey("Product", on_delete=models.RESTRICT)
     purchase_date = models.DateTimeField(auto_now_add=True)
-    purchase = models.ForeignKey(
-        "Purchase", on_delete=models.SET_NULL, null=True, blank=True
+
+    product = models.ForeignKey("Product", on_delete=models.RESTRICT)
+    purchaser = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
     )
 
     def get_absolute_url(self):

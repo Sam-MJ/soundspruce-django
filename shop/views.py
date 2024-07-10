@@ -36,9 +36,7 @@ class ProductInstanceList(LoginRequiredMixin, generic.ListView):
     model = ProductInstance
 
     def get_queryset(self) -> QuerySet[Any]:
-        return ProductInstance.objects.filter(
-            purchaser=self.request.user, completed=True
-        )
+        return ProductInstance.objects.filter(purchaser=self.request.user)
 
 
 @login_required()
