@@ -10,15 +10,12 @@ CATEGORY_CHOICES = (("S", "Software"),)
 class Product(models.Model):
     name = models.CharField(max_length=100)
     stripe_product_id = models.CharField(max_length=220, blank=True, null=True)
-    price = models.DecimalField(max_digits=6, decimal_places=2, default=99.00)
-    stripe_price = models.IntegerField(
-        blank=True, null=True, default=9900
-    )  # stripe price is price * 100
+    slug = models.SlugField(unique=True)
+
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
     description = models.TextField()
     demo_video = models.URLField(blank=True)
     image = models.ImageField(blank=True, upload_to="images/")
-    slug = models.SlugField(unique=True)
     file = models.FileField(blank=True)
 
     def __str__(self) -> str:
@@ -26,6 +23,15 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse("shop:product-detail", args=[self.slug])
+
+
+class Price(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    stripe_price_id = models.CharField(max_length=100)
+    price = models.IntegerField(default=0)
+
+    def get_display_price(self):
+        return "{0:.2f}".format(self.price / 100)
 
 
 class ProductInstance(models.Model):

@@ -11,6 +11,11 @@ class ProductAdmin(admin.ModelAdmin):
     # prepopulated_fields = {"slug": ("name",)}
 
 
+@admin.register(models.Price)
+class PriceAdmin(admin.ModelAdmin):
+    pass
+
+
 @admin.register(models.ProductInstance)
 class ProductInstanceAdmin(admin.ModelAdmin):
     list_filter = ("purchase_date",)

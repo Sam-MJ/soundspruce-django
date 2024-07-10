@@ -1,5 +1,5 @@
 {% if product %}
-<form method="POST" action="{% url 'purchases:start' %}"> {% csrf_token %}
+<form method="POST" action="{% url 'purchases:checkout' price.id product.slug %}"> {% csrf_token %}
     <input type="hidden" value="{{ product.slug }}" name="slug" />
     <button type="submit" class="btn btn-outline-dark flex-shrink-0"><i class="bi-cart-fill me-1"></i>Buy Now</button>
 </form>

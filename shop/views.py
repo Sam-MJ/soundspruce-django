@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 
 from django.views import generic
 
-from shop.models import Product, ProductInstance
+from shop.models import Product, Price, ProductInstance
 
 
 class ProductListView(generic.ListView):
@@ -18,14 +18,16 @@ class ProductListView(generic.ListView):
 
 
 def product_detail_view(request, slug):
-    obj = get_object_or_404(Product, slug=slug)
-
+    product = get_object_or_404(Product, slug=slug)
+    price = get_object_or_404(Price, product=product)
     is_owner = False
     if request.user.is_authenticated:
         is_owner = (
-            request.user.purchase_set.all().filter(product=obj, completed=True).exists()
+            request.user.purchase_set.all()
+            .filter(product=product, completed=True)
+            .exists()
         )
-    context = {"product": obj, "is_owner": is_owner}
+    context = {"product": product, "price": price, "is_owner": is_owner}
     return render(request, "shop/product_detail.html", context)
 
 
