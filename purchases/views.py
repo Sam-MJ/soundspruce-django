@@ -3,14 +3,25 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
 from django.views.generic import TemplateView
+from django.views.decorators.csrf import csrf_exempt
+import stripe.error
 from shop.models import Product, Price
 from purchases.models import Purchase
 import stripe
 import logging
 
-from soundspruce.settings import DOMAIN_URL, STRIPE_SECRET_KEY
+from soundspruce.settings import DOMAIN_URL, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET
 
 stripe.api_key = STRIPE_SECRET_KEY
+
+
+class SuccessView(TemplateView):
+    template_name = "purchases/success.html"
+    # thank you, and re-direct to product-instance list
+
+
+class CancelView(TemplateView):
+    template_name = "purchases/cancel.html"
 
 
 # Create your views here.
@@ -33,9 +44,10 @@ def create_checkout_view(request, id, slug):
 
     try:
         checkout_session = stripe.checkout.Session.create(
+            payment_method_types=["card"],
             line_items=[
                 {
-                    "price": price,
+                    "price": price.stripe_price_id,
                     "quantity": 1,
                 }
             ],
@@ -52,10 +64,28 @@ def create_checkout_view(request, id, slug):
     return HttpResponseRedirect(checkout_session.url)
 
 
-class SuccessView(TemplateView):
-    template_name = "purchases/success.html"
-    # thank you, and re-direct to product-instance list
+@csrf_exempt
+def stripe_webhook(request):
+    payload = request.body
+    sig_header = request.META["HTTP_STRIPE_SIGNATURE"]
+    event = None
 
+    try:
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, STRIPE_WEBHOOK_SECRET
+        )
+    except ValueError as e:
+        # Invalid payload
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return HttpResponse(status=400)
 
-class CancelView(TemplateView):
-    template_name = "purchases/cancel.html"
+    if event["type"] == "checkout.session.completed":
+        session = event["data"]["object"]
+        session_id = session.get("id", None)
+
+        purchase = get_object_or_404(Purchase, stripe_checkout_session_id=session_id)
+        purchase.completed = True
+
+    return HttpResponse(status=200)

@@ -18,6 +18,7 @@ class ProductListView(generic.ListView):
 
 
 def product_detail_view(request, slug):
+    """product detail view, is owner is passed to see if purchase button should be shown or not."""
     product = get_object_or_404(Product, slug=slug)
     price = get_object_or_404(Price, product=product)
     is_owner = False
@@ -35,7 +36,9 @@ class ProductInstanceList(LoginRequiredMixin, generic.ListView):
     model = ProductInstance
 
     def get_queryset(self) -> QuerySet[Any]:
-        return ProductInstance.objects.filter(purchaser=self.request.user)
+        return ProductInstance.objects.filter(
+            purchaser=self.request.user, completed=True
+        )
 
 
 @login_required()

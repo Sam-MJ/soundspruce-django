@@ -5,9 +5,14 @@ from . import models
 # Register your models here.
 
 
+class PriceInlineAdmin(admin.TabularInline):
+    model = models.Price
+    extra = 0
+
+
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
-    pass
+    inlines = [PriceInlineAdmin]
     # prepopulated_fields = {"slug": ("name",)}
 
 
