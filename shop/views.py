@@ -34,6 +34,7 @@ def product_detail_view(request, slug):
 
 class ProductInstanceList(LoginRequiredMixin, generic.ListView):
     model = ProductInstance
+    context_object_name = "purchased_products_list"
 
     def get_queryset(self) -> QuerySet[Any]:
         return ProductInstance.objects.filter(purchaser=self.request.user)

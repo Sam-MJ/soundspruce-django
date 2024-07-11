@@ -4,9 +4,9 @@
 <div class="container-lg py-4">
     <h1 class="display-5">My Products</h1>
 
-    {% if productinstance_list %}
+    {% if purchased_products_list %}
     <div class="container">
-      {% for productinst in productinstance_list %}
+      {% for productinst in purchased_products_list %}
       <div class="row py-4">
         <div class="col text-center">
           <a href="{% url 'shop:product-detail' productinst.product.slug %}">{{ productinst.product.name }}</a>

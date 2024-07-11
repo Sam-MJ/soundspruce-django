@@ -15,7 +15,7 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
 
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     demo_video = models.URLField(blank=True)
     image = models.ImageField(blank=True, upload_to="images/")
     file = models.FileField(blank=True)
