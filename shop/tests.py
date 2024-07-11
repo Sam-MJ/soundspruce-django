@@ -10,6 +10,7 @@ from accounts.models import User
 class TestProductInstanceList(TestCase):
 
     def setUp(self) -> None:
+        """Create a user, product, price, purchase and product instance objects to test full product delivery"""
         self.user = User.objects.create_user("test1", "abc@123.com", "thisisatest")
         login = self.client.login(username="test1", password="thisisatest")
 
@@ -36,7 +37,7 @@ class TestProductInstanceList(TestCase):
             product=purchase.product, purchaser=purchase.user
         )
 
-    def test_product_exists(self):
+    def product_exists_in_product_instance_list(self):
         response = self.client.get(reverse("shop:product-instance-list"))
 
         self.assertEqual(response.status_code, 200)
