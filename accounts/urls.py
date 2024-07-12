@@ -2,7 +2,6 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 from . import views
 
-# app_name = "accounts"
 
 urlpatterns = [
     # auth_views.LoginView for default, views.LogicView and uncomment LoginView in views for email?
