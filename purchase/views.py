@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.views.decorators.csrf import csrf_exempt
 import stripe.error
 from shop.models import Product, Price, ProductInstance
-from purchases.models import Purchase
+from purchase.models import Purchase
 import stripe
 import logging
 
@@ -16,12 +16,12 @@ stripe.api_key = STRIPE_SECRET_KEY
 
 
 class SuccessView(TemplateView):
-    template_name = "purchases/success.html"
+    template_name = "purchase/success.html"
     # thank you, and re-direct to product-instance list
 
 
 class CancelView(TemplateView):
-    template_name = "purchases/cancel.html"
+    template_name = "purchase/cancel.html"
 
 
 # Create your views here.
@@ -38,8 +38,8 @@ def create_checkout_view(request, id, slug):
     # create purchase
     purchase = Purchase.objects.create(user=request.user, product=product)
 
-    success_path = reverse("purchases:success")
-    cancel_path = reverse("purchases:stopped")
+    success_path = reverse("purchase:success")
+    cancel_path = reverse("purchase:stopped")
     assert success_path.startswith("/") and cancel_path.startswith("/")
 
     try:

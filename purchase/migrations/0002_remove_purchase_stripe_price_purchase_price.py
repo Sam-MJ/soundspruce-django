@@ -7,18 +7,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('purchases', '0001_initial'),
-        ('shop', '0008_remove_product_price_remove_product_stripe_price_and_more'),
+        ("purchase", "0001_initial"),
+        ("shop", "0008_remove_product_price_remove_product_stripe_price_and_more"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='purchase',
-            name='stripe_price',
+            model_name="purchase",
+            name="stripe_price",
         ),
         migrations.AddField(
-            model_name='purchase',
-            name='price',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='shop.price'),
+            model_name="purchase",
+            name="price",
+            field=models.ForeignKey(
+                null=True, on_delete=django.db.models.deletion.SET_NULL, to="shop.price"
+            ),
         ),
     ]

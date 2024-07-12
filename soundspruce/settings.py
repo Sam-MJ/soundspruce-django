@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "contact.apps.ContactConfig",
     "shop.apps.ShopConfig",
     "accounts.apps.AccountsConfig",
-    "purchases.apps.PurchasesConfig",
+    "purchase.apps.PurchaseConfig",
     # settings
     "django.contrib.admin",
     "django.contrib.auth",

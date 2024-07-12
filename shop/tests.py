@@ -3,7 +3,7 @@ from django.urls import reverse
 
 # Create your tests here.
 from shop.models import Product, ProductInstance, Price
-from purchases.models import Purchase
+from purchase.models import Purchase
 from accounts.models import User
 
 
