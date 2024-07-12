@@ -3,3 +3,4 @@ __pycache__/
 .env
 media/
 testuserdetails.txt
+sent_emails/

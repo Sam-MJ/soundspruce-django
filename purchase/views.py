@@ -25,7 +25,7 @@ class CancelView(TemplateView):
 
 
 # Create your views here.
-@login_required(login_url="accounts:login")
+@login_required(login_url="login")
 def create_checkout_view(request, id, slug):
 
     if not request.method == "POST":

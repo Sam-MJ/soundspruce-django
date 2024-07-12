@@ -2,7 +2,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 from . import views
 
-app_name = "accounts"
+# app_name = "accounts"
 
 urlpatterns = [
     # auth_views.LoginView for default, views.LogicView and uncomment LoginView in views for email?
@@ -18,7 +18,11 @@ urlpatterns = [
         auth_views.PasswordChangeDoneView.as_view(),
         name="password_change_done",
     ),
-    path("password_reset/", views.PasswordResetView.as_view(), name="password_reset"),
+    path(
+        "password_reset/",
+        auth_views.PasswordResetView.as_view(),
+        name="password_reset",
+    ),
     path(
         "password_reset/done/",
         auth_views.PasswordResetDoneView.as_view(),

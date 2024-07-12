@@ -15,11 +15,19 @@ from accounts.models import User
     form_class = forms.LoginForm """
 
 
-class PasswordResetView(auth_views.PasswordResetView):
+""" class PasswordResetView(auth_views.PasswordResetView):
     def get_context_data(self, *args, **kwargs):
         context_data = super().get_context_data(*args, **kwargs)
         context_data["form"].fields["email"].label = "Email address"
-        return context_data
+        return context_data """
+
+
+""" class PasswordChangeView(auth_views.PasswordChangeView):
+    success_url = reverse_lazy("password_change_done") """
+
+
+""" class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+    success_url = reverse_lazy("password_reset") """
 
 
 class UserRegisterView(SuccessMessageMixin, CreateView):
