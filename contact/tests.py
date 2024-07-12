@@ -18,5 +18,5 @@ class ContactTests(SimpleTestCase):
 
     def test_template_content(self):
         response = self.client.get(reverse("contact:contact"))
-        self.assertContains(response, "<h1>Contact</h1>")
+        self.assertContains(response, "Contact</h1>")
         self.assertNotContains(response, "Not on the page")

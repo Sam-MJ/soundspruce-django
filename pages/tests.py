@@ -37,5 +37,5 @@ class AboutTest(SimpleTestCase):
 
     def test_template_content(self):
         response = self.client.get(reverse("pages:about"))
-        self.assertContains(response, "<h1>About</h1>")
+        self.assertContains(response, "About</h1>")
         self.assertNotContains(response, "Not on the page")

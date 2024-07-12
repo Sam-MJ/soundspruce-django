@@ -6,7 +6,7 @@ app_name = "accounts"
 
 urlpatterns = [
     # auth_views.LoginView for default, views.LogicView and uncomment LoginView in views for email?
-    path("login/", auth_views.LoginView.as_view(), name="login"),
+    path("register/login/", auth_views.LoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path(
         "password_change/",
