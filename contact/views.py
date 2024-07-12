@@ -2,8 +2,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import FormView, TemplateView
 from django.urls import reverse_lazy
+from django.core.mail import send_mail
 
 # Create your views here.
+from soundspruce.settings import DEFAULT_FROM_EMAIL, NOTIFY_EMAIL
 from contact.forms import ContactForm
 from contact.models import Enquiry
 
@@ -20,6 +22,20 @@ class ContactView(FormView):
         message = form.cleaned_data.get("message")
 
         form.save()
+
+        full_message = f"""
+            Received message below from {name}: {email},
+            subject: {subject}
+            ________________________
+            {message}
+            """
+
+        send_mail(
+            subject="Received contact form submission",
+            message=full_message,
+            from_email=DEFAULT_FROM_EMAIL,
+            recipient_list=[NOTIFY_EMAIL],
+        )
 
         return super(ContactView, self).form_valid(form)
 
