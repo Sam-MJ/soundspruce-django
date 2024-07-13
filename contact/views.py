@@ -1,18 +1,17 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.generic import FormView, TemplateView
+from django.views.generic import FormView, TemplateView, CreateView
 from django.urls import reverse_lazy
 from django.core.mail import send_mail
 
 # Create your views here.
 from soundspruce.settings import DEFAULT_FROM_EMAIL, NOTIFY_EMAIL
-from contact.forms import ContactForm
-from contact.models import Enquiry
+from contact.forms import ContactForm, WaitListForm
+from contact.models import Enquiry, WaitList
 
 
 class ContactView(FormView):
     template_name = "contact/contact.html"
-    success_url = "contact:success"
     form_class = ContactForm
 
     def form_valid(self, form) -> HttpResponse:
@@ -38,6 +37,15 @@ class ContactView(FormView):
         )
 
         return super(ContactView, self).form_valid(form)
+
+    def get_success_url(self) -> str:
+        return reverse_lazy("contact:success")
+
+
+class WaitListView(CreateView):
+    model = WaitList
+    fields = "__all__"
+    template_name = "contact/waitlist.html"
 
     def get_success_url(self) -> str:
         return reverse_lazy("contact:success")
