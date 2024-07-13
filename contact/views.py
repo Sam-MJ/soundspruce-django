@@ -43,8 +43,7 @@ class ContactView(FormView):
 
 
 class WaitListView(CreateView):
-    model = WaitList
-    fields = "__all__"
+    form_class = WaitListForm
     template_name = "contact/waitlist.html"
 
     def get_success_url(self) -> str:

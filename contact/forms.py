@@ -1,5 +1,4 @@
 from django import forms
-from django.core.validators import EmailValidator
 
 from contact.models import Enquiry, WaitList
 
