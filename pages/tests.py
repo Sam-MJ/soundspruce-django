@@ -18,7 +18,10 @@ class IndexTests(SimpleTestCase):
 
     def test_template_content(self):
         response = self.client.get(reverse("pages:home"))
-        self.assertContains(response, "<h1>SoundSpruce</h1>")
+        self.assertContains(
+            response,
+            '<span class="display-5 text-white mb-2">Do one thing</span>',
+        )
         self.assertNotContains(response, "Not on the page")
 
 
