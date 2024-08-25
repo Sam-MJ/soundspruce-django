@@ -1,6 +1,6 @@
 
-# SoundSpruce E-Commerce Web Store for Digital Products
-E-Commerce web store to sell my SausageFileConverter product.
+# Simple E-Commerce Web Store for Digital Products
+SoundSpruce, an E-Commerce web store to sell my SausageFileConverter product.
 * Django
 * HTML/CSS/Bootstrap5
 * Stripe
