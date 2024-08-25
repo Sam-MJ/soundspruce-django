@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container-lg py-4">
     <h1 class="display-5">Wait list</h1>
-    <p>If you are interested in an upcoming product please show your interest by filling in the form below! This helps me to know what to focus on.</p>
+    <p>If you are interested in an upcoming product please show your interest by filling in the form below! This helps me to prioritise what projects to work on and who would like early access!</p>
     <form action="{% url 'contact:waitlist' %}" method="post">
 
         {% csrf_token %}

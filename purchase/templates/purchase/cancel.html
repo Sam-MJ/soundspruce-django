@@ -7,9 +7,11 @@
 
 {% block content %}
 <body>
-    <section>
-        <p>Forgot to add something to your cart? <a href="{% url 'pages:home' %}">Try again</a></p>
-    </section>
+    <div class="container">
+        <section>
+            <p>Having problems or just curious? <a href="{% url 'pages:home' %}">Try again</a> or <a href="{% url 'contact:contact' %}">Contact me</a></p>
+        </section>
+    </div>
 </body>
 
 {% endblock %}

@@ -11,9 +11,9 @@
         <div class="col text-center">
           <a href="{% url 'shop:product-detail' productinst.product.slug %}">{{ productinst.product.name }}</a>
         </div>
-        <div class="col text-center">
+        <!-- <div class="col text-center">
           Serial Number: {{ productinst.serial_number}}
-        </div>
+        </div> -->
         <div class="col text-center">
           Purchase Date: {{ productinst.purchase_date|date:"SHORT_DATE_FORMAT"}}
         </div>
