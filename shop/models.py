@@ -18,6 +18,8 @@ class Product(models.Model):
     description = models.TextField(blank=True)
     demo_video = models.URLField(blank=True)
     image = models.ImageField(blank=True, upload_to="images/")
+    carousel_image1 = models.ImageField(blank=True, upload_to="images/")
+    carousel_image2 = models.ImageField(blank=True, upload_to="images/")
     file = models.FileField(blank=True)
 
     def __str__(self) -> str:

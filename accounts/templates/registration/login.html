@@ -4,18 +4,19 @@
 
 {% block content %}
 
-  {% if next %}
-    {% if user.is_authenticated %}
-      <p>Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</p>
-    {% else %}
-      <p>Please login to see this page.</p>
-    {% endif %}
-  {% endif %}
-
 <br>
 <div class="container">
-  <h1 class="display-5">Log in</h1>
+  {% if next %}
+    {% if user.is_authenticated %}
+    <h1 class="display-5">Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</h1>
+    {% else %}
+      <h1 class="display-5">Please login to continue</h1>
+    {% endif %}
+  {% else %}
+    <h1 class="display-5">Log in</h1>
+  {% endif %}
+
   <form method="post" action="{% url 'login' %}" class="form-signin">
     {% csrf_token %}
     {{ form|crispy }}
