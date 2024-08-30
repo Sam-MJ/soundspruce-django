@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, CreateView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.utils.http import url_has_allowed_host_and_scheme
 from . import forms
 from accounts.models import User
 
@@ -35,7 +36,6 @@ from accounts.models import User
 
 class UserRegisterView(SuccessMessageMixin, CreateView):
     template_name = "accounts/register.html"
-    success_url = reverse_lazy("pages:home")
     form_class = forms.UserRegisterForm
     success_message = "Your profile was created successfully"
 
@@ -47,6 +47,22 @@ class UserRegisterView(SuccessMessageMixin, CreateView):
         user = authenticate(username=username, password=password)
         login(self.request, user)
         return valid
+
+    def get_context_data(self, **kwargs):
+        context = super(UserRegisterView, self).get_context_data(**kwargs)
+        next_page = self.request.GET.get("next")
+        if next_page:
+            context["next"] = next_page
+        return context
+
+    def get_success_url(self):
+
+        if url_has_allowed_host_and_scheme(self.request.POST.get("next"), None):
+            redirect_to = self.request.POST.get("next")
+        else:
+            redirect_to = None
+
+        return redirect_to or reverse_lazy("pages:home")
 
 
 class RegisterConfirmView(auth_views.PasswordResetConfirmView):
