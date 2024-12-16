@@ -1,7 +1,7 @@
 #from base image
 FROM python:3.12-bookworm
 
-WORKDIR /usr/src/soundspruce-site
+WORKDIR /usr/src/soundspruce-django
 
 #prevents python writing pyc files to disk
 ENV PYTHONDONTWRITEBYTECODE 1
