@@ -4339,7 +4339,8 @@ textarea.form-control-lg {
 .card-img,
 .card-img-top,
 .card-img-bottom {
-  width: 100%;
+  max-width: 100%;
+  height:auto;
 }
 
 .card-img,
@@ -4799,7 +4800,7 @@ textarea.form-control-lg {
   }
 }
 .progress {
-  --bs-progress-height: 1rem;
+  --bs-progress-height: 2rem;
   --bs-progress-font-size: 0.75rem;
   --bs-progress-bg: #e9ecef;
   --bs-progress-border-radius: 0.375rem;
