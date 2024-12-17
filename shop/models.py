@@ -2,6 +2,9 @@ import uuid
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
+protected_files = FileSystemStorage(location='protected/')
 
 CATEGORY_CHOICES = (("S", "Software"),)
 
@@ -20,7 +23,7 @@ class Product(models.Model):
     image = models.ImageField(blank=True, upload_to="images/")
     carousel_image1 = models.ImageField(blank=True, upload_to="images/")
     carousel_image2 = models.ImageField(blank=True, upload_to="images/")
-    file = models.FileField(blank=True)
+    file = models.FileField(storage=protected_files, blank=True)
 
     def __str__(self) -> str:
         return self.name

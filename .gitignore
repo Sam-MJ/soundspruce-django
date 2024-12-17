@@ -3,6 +3,8 @@ __pycache__/
 .env
 .env.prod
 .venv
-media/
+mediafiles/
+protected/
+database/
 testuserdetails.txt
 sent_emails/

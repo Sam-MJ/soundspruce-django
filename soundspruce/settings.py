@@ -144,7 +144,7 @@ LOGIN_REDIRECT_URL = "pages:home"
 
 # serve files from this dir
 MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = BASE_DIR / "mediafiles"
 
 DOMAIN_URL = os.getenv("DOMAIN_URL")
 
@@ -162,4 +162,4 @@ EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 DEFAULT_FROM_EMAIL = "admin@soundspruce.com"
 NOTIFY_EMAIL = "admin@soundspruce.com"
 
-CSRF_TRUSTED_ORIGINS = ["https://soundspruce.com", "http://soundspruce.com"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:1337", "https://soundspruce.com", "http://soundspruce.com"] # remove 1337 in prod

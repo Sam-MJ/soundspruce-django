@@ -1,9 +1,9 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.contrib.auth.decorators import permission_required, login_required
-from django.http.response import FileResponse, HttpResponseBadRequest
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.http.response import HttpResponseBadRequest, HttpResponse
 from django.shortcuts import get_object_or_404
 
 # Create your views here.
@@ -53,7 +53,11 @@ def product_download(request, slug):
             "Bad Request, This product is not on your purchased list."
         )
 
-    file = product.file
     file_name = product.file.name
-    response = FileResponse(file, as_attachment=True, filename=file_name)
+
+    #NGINX setup
+    response = HttpResponse()
+    response['Content-Disposition'] = f'attachment; filename="{file_name}'
+    response['X-Accel-Redirect'] = f'/protected/{file_name}'
+
     return response
