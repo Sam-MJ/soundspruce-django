@@ -19,8 +19,11 @@
         </div>
         <div class="col text-center">
             <form action="{% url 'shop:product-download' productinst.product.slug %}">
-              <input type="submit" value="Download"/>
+              <input type="submit" value="Download PC Version"/>
           </form>
+        </div>
+        <div class="col text-center">
+            <p>For Mac versions, please contact me for a license agreement.</p>
         </div>
       </div>
       {% endfor %}
