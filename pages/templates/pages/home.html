@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
     <!-- Page Content-->
      <!-- Header-->
@@ -24,16 +25,25 @@
     <section class="py-5 border-bottom" id="features">
         <div class="container d-flex justify-content-center px-5 my-5">
             <div class="row gx-5 justify-content-center">
-                <div class="mb-5 mb-lg-0 align-items-center">
+                <!-- Video column -->
+                <div class="col-lg-6 mb-5 mb-lg-0 d-flex align-items-center">
+                    <div class="video-container w-100">
+                        <video autoplay muted loop class="w-100">
+                            <source src="{% static 'assets/SFC1.3.2banner.mp4' %}" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+                <!-- Content column -->
+                <div class="col-lg-6 mb-lg-0 d-flex flex-column align-items-center">
                     <h2 class="h2 fw-bolder text-center">SausageFileConverter</h2>
-                    <div class="container my-5">
-                        <div class="container my-3">
+                    <div class="my-5">
+                        <div class="my-3">
                             <i class="bi-lightning-fill"></i> Speed up your workflow by consolidating your sound library
                         </div>
-                        <div class="container my-3">
+                        <div class="my-3">
                             <i class="bi-arrow-repeat"> Hassle free batch conversion </i>
                         </div>
-                        <div class="container my-3">
+                        <div class="my-3">
                             <i class="bi-file-earmark-richtext"> Retain metadata, including SoundMiner! </i>
                         </div>
                     </div>
@@ -42,25 +52,6 @@
                         <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
-                <!-- PRODUCT CARD WITH WAITLIST -->
-                <!-- <div class="col-lg-4 mb-5 mb-lg-0">
-                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-building"></i></div>
-                    <h2 class="h4 fw-bolder">PhotoGPStoMetadata</h2>
-                    <p>Coming soon: Match audio files with photos and embed GPS data and images into them.</p>
-                    <a class="text-decoration-none" href="{% url 'contact:waitlist' %}">
-                        Join Wait List
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
-                </div> -->
-                <!-- <div class="col-lg-4">
-                    <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
-                    <h2 class="h4 fw-bolder">Featured title</h2>
-                    <p>Paragraph of text beneath the heading to explain the heading. We'll add onto it with another sentence and probably just keep going until we run out of words.</p>
-                    <a class="text-decoration-none" href="#!">
-                        Call to action
-                        <i class="bi bi-arrow-right"></i>
-                    </a>
-                </div> -->
             </div>
         </div>
     </section>
@@ -86,7 +77,7 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
                                 <div class="ms-4">
-                                    <p class="mb-1">Sausage File Converter is an absolute must-have for managing sound file bloat.  It's saved me countless hours of manual one-shot consolidation and made my library so much quicker to navigate.  Highly recommend!</p>
+                                    <p class="mb-1">Sausage File Converter is an absolute <b>must-have</b> for managing sound file bloat.  It's saved me <b>countless hours</b> of manual one-shot consolidation and made my library so much <b>quicker to navigate</b>.  Highly recommend!</p>
                                     <div class="small text-muted">- <a href="https://www.andrewvscott.com/">Andrew Scott</a>, Sound Designer, Intrepid Studios</div>
                                 </div>
                             </div>
@@ -94,7 +85,7 @@
                     </div>
 
                     <!-- Testimonial 2-->
-                    <div class="card mb-4">
+                    <!-- <div class="card mb-4">
                         <div class="card-body p-4">
                             <div class="d-flex">
                                 <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
@@ -104,7 +95,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-lg-6">
                     <!-- Testimonial 3-->
@@ -113,14 +104,14 @@
                             <div class="d-flex">
                                 <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
                                 <div class="ms-4">
-                                    <p class="mb-1">SausageFileConverter is such an amazing and practical tool for me. It has saved me hours and hours of tedious work consolidating various libraries into a more convenient sausage file structure. Sam is a great dev, always listening to feedback and implementing them quickly in new releases. I can't wait to check out the evolution of this awesome piece of software. A must have!</p>
+                                    <p class="mb-1">SausageFileConverter is such an <b>amazing and practical tool</b> for me. It has <b>saved me hours and hours of tedious work</b> consolidating various libraries into a more convenient sausage file structure. Sam is a great dev, always listening to feedback and implementing them quickly in new releases. I can't wait to check out the evolution of this awesome piece of software. <b>A must have!</b></p>
                                     <div class="small text-muted">- <a href="https://bruits.studio/">Tibo Csuko</a>, Lead Sound Designer, Bruits.Studio</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- Testimonial 4-->
-                    <div class="card mb-4">
+                    <!-- <div class="card mb-4">
                         <div class="card-body p-4">
                             <div class="d-flex">
                                 <div class="flex-shrink-0"><i class="bi bi-chat-right-quote-fill text-primary fs-1"></i></div>
@@ -130,7 +121,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

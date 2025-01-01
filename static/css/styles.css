@@ -10899,3 +10899,9 @@ textarea.form-control-lg {
   width: 4rem;
   font-size: 2rem;
 }
+
+.video-container {
+  width:100%;
+  height:0;
+  padding-bottom:68%
+}

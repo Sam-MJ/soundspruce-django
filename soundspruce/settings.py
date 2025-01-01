@@ -26,9 +26,12 @@ load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+DOMAIN_URL = os.getenv("DOMAIN_URL")
+ALLOWED_HOSTS = [".soundspruce.com",]
+
+CSRF_TRUSTED_ORIGINS = ["https://*.soundspruce.com", "http://*.soundspruce.com"] # remove 1337 in prod
 
 
 # Application definition
@@ -146,8 +149,6 @@ LOGIN_REDIRECT_URL = "pages:home"
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "mediafiles"
 
-DOMAIN_URL = os.getenv("DOMAIN_URL")
-
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
@@ -162,4 +163,5 @@ EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 DEFAULT_FROM_EMAIL = "admin@soundspruce.com"
 NOTIFY_EMAIL = "admin@soundspruce.com"
 
-CSRF_TRUSTED_ORIGINS = ["http://localhost:1337", "https://soundspruce.com", "http://soundspruce.com"] # remove 1337 in prod
+#CSRF_COOKIE_SECURE = True
+#SESSION_COOKIE_SECURE = True

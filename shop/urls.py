@@ -14,9 +14,3 @@ urlpatterns = [
     path("<slug:slug>/", views.product_detail_view, name="product-detail"),
     path("<slug:slug>/download", views.product_download, name="product-download"),
 ]
-# this isn't really needed for now, maybe later.
-""" path(
-        "<uuid:serial_number>",
-        views.ProductInstanceView.as_view(),
-        name="product-instance-detail",
-    ), """
