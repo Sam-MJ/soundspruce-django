@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     # front end templates
     "crispy_forms",
     "crispy_bootstrap5",
+    "django_recaptcha"
 ]
 
 MIDDLEWARE = [
@@ -162,6 +163,10 @@ EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
 DEFAULT_FROM_EMAIL = "admin@soundspruce.com"
 NOTIFY_EMAIL = "admin@soundspruce.com"
+
+RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY")
+RECAPTCHA_REQUIRED_SCORE = 0.85
 
 #CSRF_COOKIE_SECURE = True
 #SESSION_COOKIE_SECURE = True

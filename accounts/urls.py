@@ -5,7 +5,7 @@ from . import views
 
 urlpatterns = [
     # auth_views.LoginView for default, views.LogicView and uncomment LoginView in views for email?
-    path("register/login/", auth_views.LoginView.as_view(), name="login"),
+    path("register/login/", views.LoginView.as_view(), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path(
         "password_change/",
@@ -19,7 +19,7 @@ urlpatterns = [
     ),
     path(
         "password_reset/",
-        auth_views.PasswordResetView.as_view(),
+        views.PasswordResetView.as_view(),
         name="password_reset",
     ),
     path(

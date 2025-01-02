@@ -1,6 +1,7 @@
 __pycache__/
 *py[cod]
 .env
+.env.dev
 .env.prod
 .venv
 mediafiles/

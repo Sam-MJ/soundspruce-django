@@ -14,15 +14,13 @@ from accounts.models import User
 
 
 # this is so you can log in with an email
-""" class LoginView(auth_views.LoginView):
-    form_class = forms.LoginForm """
+class LoginView(auth_views.LoginView):
+    form_class = forms.LoginForm
 
 
-""" class PasswordResetView(auth_views.PasswordResetView):
-    def get_context_data(self, *args, **kwargs):
-        context_data = super().get_context_data(*args, **kwargs)
-        context_data["form"].fields["email"].label = "Email address"
-        return context_data """
+
+class PasswordResetView(auth_views.PasswordResetView):
+    form_class = forms.CustomPasswordResetForm
 
 
 """ class PasswordChangeView(auth_views.PasswordChangeView):

@@ -1,7 +1,10 @@
 from django.contrib.auth.forms import (
     AuthenticationForm,
-    UserCreationForm,
+    UserCreationForm, PasswordResetForm
 )
+
+from django_recaptcha.fields import ReCaptchaField, ReCaptchaV3
+
 from django.forms import (
     EmailField,
     EmailInput,
@@ -9,14 +12,37 @@ from django.forms import (
 from accounts.models import User
 
 
-# this is so you can log in with an email, not used
 class LoginForm(AuthenticationForm):
-    username = EmailField(
-        widget=EmailInput(attrs={"autofocus": True, "autocomplete": "email"})
+
+    captcha = ReCaptchaField(
+    widget=ReCaptchaV3(
+        attrs={
+            'required_score':0.5
+        },action="login"
+    )
+)
+
+
+class CustomPasswordResetForm(PasswordResetForm):
+
+    captcha = ReCaptchaField(
+    widget=ReCaptchaV3(
+        attrs={
+            'required_score':0.7
+        },action="login"
+    )
     )
 
 
 class UserRegisterForm(UserCreationForm):
+
+    captcha = ReCaptchaField(
+    widget=ReCaptchaV3(
+        attrs={
+            'required_score':0.7
+        },action="register"
+    )
+)
 
     class Meta:
         model = User
