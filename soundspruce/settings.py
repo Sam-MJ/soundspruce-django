@@ -157,9 +157,15 @@ STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY")
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET")
 
-# for dev purposes, put smpt for prod
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+# for dev purposes
+# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'mail.smtp2go.com'
+EMAIL_HOST_USER  = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True
 
 DEFAULT_FROM_EMAIL = "admin@soundspruce.com"
 NOTIFY_EMAIL = "admin@soundspruce.com"
