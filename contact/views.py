@@ -15,7 +15,8 @@ class ContactView(FormView):
     form_class = ContactForm
 
     def form_valid(self, form) -> HttpResponse:
-        name = form.cleaned_data.get("name")
+        first_name = form.cleaned_data.get("first_name")
+        last_name = form.cleaned_data.get("last_name")
         email = form.cleaned_data.get("email")
         subject = form.cleaned_data.get("subject")
         message = form.cleaned_data.get("message")
@@ -23,7 +24,7 @@ class ContactView(FormView):
         form.save()
 
         full_message = f"""
-            Received message below from {name}: {email},
+            Received message below from {first_name} {last_name}: {email},
             subject: {subject}
             ________________________
             {message}

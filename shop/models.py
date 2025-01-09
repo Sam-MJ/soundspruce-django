@@ -23,7 +23,9 @@ class Product(models.Model):
     image = models.ImageField(blank=True, upload_to="images/")
     carousel_image1 = models.ImageField(blank=True, upload_to="images/")
     carousel_image2 = models.ImageField(blank=True, upload_to="images/")
-    file = models.FileField(storage=protected_files, blank=True)
+    pc_file = models.FileField(storage=protected_files, blank=True)
+    mac_x86_file = models.FileField(storage=protected_files, blank=True)
+    mac_arm_file = models.FileField(storage=protected_files, blank=True)
 
     def __str__(self) -> str:
         return self.name
@@ -51,6 +53,7 @@ class ProductInstance(models.Model):
     purchaser = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True
     )
+    mac_download_allowed = models.BooleanField(default=False)
 
     def get_absolute_url(self):
         return reverse("product-instance-detail", args=[str(self.serial_number)])

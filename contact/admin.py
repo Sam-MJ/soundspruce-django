@@ -1,10 +1,10 @@
 from django.contrib import admin
 
 # Register your models here.
-from django.contrib.auth.admin import UserAdmin
+from django.contrib.admin import ModelAdmin
 from .models import Enquiry
 
 
 @admin.register(Enquiry)
-class MyUserAdmin(UserAdmin):
-    pass
+class EnquiryAdmin(ModelAdmin):
+    list_display = ["email", "message","sent_date"]

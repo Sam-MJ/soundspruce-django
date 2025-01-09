@@ -33,7 +33,6 @@ ALLOWED_HOSTS = [".soundspruce.com",]
 
 CSRF_TRUSTED_ORIGINS = ["https://*.soundspruce.com", "http://*.soundspruce.com"] # remove 1337 in prod
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -174,5 +173,5 @@ RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")
 RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY")
 RECAPTCHA_REQUIRED_SCORE = 0.85
 
-#CSRF_COOKIE_SECURE = True
-#SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True

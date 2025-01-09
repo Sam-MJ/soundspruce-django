@@ -41,7 +41,7 @@ class ProductInstanceList(LoginRequiredMixin, generic.ListView):
 
 
 @login_required()
-def product_download(request, slug):
+def product_download(request, slug, platform):
 
     product = get_object_or_404(Product, slug=slug)
     download_allowed = (
@@ -53,11 +53,33 @@ def product_download(request, slug):
             "Bad Request, This product is not on your purchased list."
         )
 
-    file_name = product.file.name
+    if platform == "PC":
+        file_name = product.pc_file.name
 
-    #NGINX setup
-    response = HttpResponse()
-    response['Content-Disposition'] = f'attachment; filename="{file_name}'
-    response['X-Accel-Redirect'] = f'/protected/{file_name}'
+        #NGINX setup
+        response = HttpResponse()
+        response['Content-Disposition'] = f'attachment; filename="{file_name}'
+        response['X-Accel-Redirect'] = f'/protected/{file_name}'
 
-    return response
+        return response
+
+    elif platform == "MAC_X86":
+        file_name = product.mac_x86_file.name
+
+        #NGINX setup
+        response = HttpResponse()
+        response['Content-Disposition'] = f'attachment; filename="{file_name}'
+        response['X-Accel-Redirect'] = f'/protected/{file_name}'
+
+        return response
+
+    elif platform == "MAC_ARM":
+
+        file_name = product.mac_arm_file.name
+
+        #NGINX setup
+        response = HttpResponse()
+        response['Content-Disposition'] = f'attachment; filename="{file_name}'
+        response['X-Accel-Redirect'] = f'/protected/{file_name}'
+
+        return response
