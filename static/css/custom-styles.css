@@ -1,0 +1,11 @@
+.spinner-box {
+    --bs-primary-rgb: rgb(13, 110, 253);
+    border-radius: 10px;
+    border-top: 4px solid var(--bs-primary-rgb);
+    border-bottom: 4px solid var(--bs-primary-rgb);
+    width: 25%;
+}
+.spinner-number {
+    font-size: xx-large;
+    font-weight: 600;
+}
