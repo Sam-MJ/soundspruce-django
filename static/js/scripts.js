@@ -13,51 +13,43 @@ document.querySelectorAll(".nav-link").forEach((link) => {
 
 // Counter animation, start at text content number, go up to data-val in random increments after a random amount of time
 
-let animatedCounter = (function() {
-    //closure to ensure runCounter is only called once.
-    let running = false;
-    return function runCounter(element) {
-        if (running) {
-            return;
-        }
-        running = true;
+function animatedCounter(element) {
+    // add a random amount at a random duration
+    let startValue = Number(element.textContent);
+    let maxValue = parseInt(element.getAttribute("data-val"));
+    let delay;
 
-        let startValue = Number(element.textContent);
-        let maxValue = parseInt(element.getAttribute("data-val"));
-        let delay;
+    function randomCounterDelay() {
+        delay = getRandomNumBetween(4000, 30000);
+        setTimeout(() => {
+            addOne();
+        }, delay);
+    }
 
-        // add a random ammount at a random duration
+    function addOne() {
+        // generate a number to add to the counter and a duration based on that number.
+        // repeatedly update the counter until it has added all its numbers or has gone over the max value.
+        // if it is still below the max value, call the delay
+        let addValue = getRandomNumBetween(30, 200);
+        let endValue = startValue + addValue;
+        let duration = Math.floor(interval / addValue);
 
-        function randomCounterDelay() {
-            let addValue = getRandomNumBetween(30, 200);
-            let endValue = startValue + addValue;
-            let duration = Math.floor(interval / addValue);
-            delay = getRandomNumBetween(4000, 15000);
-            setTimeout(() => {
-                addOne(endValue, duration);
-            }, delay);
-        }
-
-        function addOne(endValue, duration) {
-            let counter = setInterval(() => {
-                startValue += 1;
-                element.textContent = startValue;
-                if (startValue >= endValue) {
-                    clearInterval(counter);
-                    if (startValue < maxValue) {
-                        randomCounterDelay();
-                    }
+        let counter = setInterval(() => {
+            startValue += 1;
+            element.textContent = startValue;
+            if (startValue >= endValue) {
+                clearInterval(counter);
+                if (startValue < maxValue) {
+                    randomCounterDelay();
                 }
-            }, duration);
-        }
-
-        randomCounterDelay();
-    };
-})();
-
+            }
+        }, duration);
+    }
+    addOne();
+};
 
 let valueDisplays = document.querySelectorAll(".spinner-number");
-let interval = 3000
+let interval = 2500;
 
 function getRandomNumBetween(min, max) {
     return Math.random() * (max - min) + min;
@@ -68,7 +60,6 @@ valueDisplays.forEach((valueDisplay) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 animatedCounter(valueDisplay);
-                console.log("visible!");
                 // Stop observing after the element is visible to avoid multiple triggers
                 observer.unobserve(valueDisplay);
             }
