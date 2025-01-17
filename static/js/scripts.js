@@ -12,56 +12,67 @@ document.querySelectorAll(".nav-link").forEach((link) => {
 });
 
 // Counter animation, start at text content number, go up to data-val in random increments after a random amount of time
+
 let animatedCounter = (function() {
     //closure to ensure runCounter is only called once.
     let running = false;
     return function runCounter(element) {
         if (running) {
-            return
+            return;
         }
-        running = true
+        running = true;
 
         let startValue = Number(element.textContent);
-        let maxValue = parseInt(element.getAttribute("data-val"))
-        let delay = getRandomBetween(4000, 30000)
-        console.log(delay)
+        let maxValue = parseInt(element.getAttribute("data-val"));
+        let delay;
 
-        // how to change set interval to a new delay each time it runs?
-        let totalCounter = setInterval(() => {
-            // if the final max total has been reached exit
-            if (startValue > maxValue) {
-                clearInterval(totalCounter)
-            }
+        // add a random ammount at a random duration
 
-            // add an ammount between 10 and 200 to the counter at random duration between 4 and 30 seconds.
-            let addValue = getRandomBetween(10, 200)
-            let endValue = startValue + addValue
-            let duration = Math.floor(interval / addValue)
+        function randomCounterDelay() {
+            let addValue = getRandomNumBetween(30, 200);
+            let endValue = startValue + addValue;
+            let duration = Math.floor(interval / addValue);
+            delay = getRandomNumBetween(4000, 15000);
+            setTimeout(() => {
+                addOne(endValue, duration);
+            }, delay);
+        }
 
+        function addOne(endValue, duration) {
             let counter = setInterval(() => {
-                startValue += 1
+                startValue += 1;
                 element.textContent = startValue;
-                if (startValue > endValue){
-                    clearInterval(counter)
+                if (startValue >= endValue) {
+                    clearInterval(counter);
+                    if (startValue < maxValue) {
+                        randomCounterDelay();
+                    }
                 }
             }, duration);
-        }, delay);
-    }
+        }
+
+        randomCounterDelay();
+    };
 })();
+
 
 let valueDisplays = document.querySelectorAll(".spinner-number");
 let interval = 3000
 
-function getRandomBetween(min, max) {
+function getRandomNumBetween(min, max) {
     return Math.random() * (max - min) + min;
 }
 
 valueDisplays.forEach((valueDisplay) => {
     const observer = new IntersectionObserver(entries => {
-        if (entries[0].target.checkVisibility()) {
-            animatedCounter(valueDisplay)
-            console.log("visible!")
-        }
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animatedCounter(valueDisplay);
+                console.log("visible!");
+                // Stop observing after the element is visible to avoid multiple triggers
+                observer.unobserve(valueDisplay);
+            }
+        });
     });
-    observer.observe(valueDisplay)
+    observer.observe(valueDisplay);
 });
