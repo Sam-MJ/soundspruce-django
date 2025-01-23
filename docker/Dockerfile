@@ -3,6 +3,10 @@ FROM python:3.12-bookworm
 
 WORKDIR /usr/src/soundspruce-django
 
+RUN apt-get update -y
+RUN apt-get upgrade -y
+RUN apt-get install sqlite3
+
 #prevents python writing pyc files to disk
 ENV PYTHONDONTWRITEBYTECODE 1
 #stops Python from buffering stdout and stderr - apparently this causes problems with docker
