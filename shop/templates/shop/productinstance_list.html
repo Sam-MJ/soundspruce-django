@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="container-lg py-4">
@@ -40,15 +41,48 @@
       <!-- antivirus false positive warning -->
 
       <div class="alert alert-primary d-flex-column align-items-center" role="alert">
-        <div class="card-body">
+        <div class="card-body" id="exclusiveCollapse">
             <h5 class="card-title">Please note:</h5>
-            <p class="card-text">If your anti-virus/Windows gives you a warning, don't worry. This happens because the application hasn't been used enough by other users yet.<p>If you experience any issues, please get in contact with the details of your anti-virus so that I can contact them to have SausageFileConverter added to their whitelist.</p></p>
+            <p class="card-text">Currently this is an unsigned binary.  If you encounter any issues select your operating system from the list below for troubleshooting information.
+                <p>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWindows" aria-expanded="false" aria-controls="collapseExample">
+                      Windows
+                    </button>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMac" aria-expanded="false" aria-controls="collapseExample">
+                        MacOs
+                    </button>
+                </p>
+                <div class="collapse" id="collapseWindows" data-bs-parent="#exclusiveCollapse">
+                    <div class="card card-body">
+                        <p>Windows Defender SmartScreen blocks unsigned applications until they have gained enough reputation. To bypass it:</p>
+                        Click "More info"
+                        <img src="{% static 'assets/WindowsSmartScreen.jpg' %}">
+                        Click "Run Anyway"
+                        <img src="{% static 'assets/WindowsSmartScreen2.jpg' %}">
+                    </div>
+                </div>
+                <div class="collapse" id="collapseMac" data-bs-parent="#exclusiveCollapse">
+                    <div class="card card-body">
+                        <p>MacOS Sequoia in particular is extra sensitive to unsigned applications, in order to open it:</p>
+                        <ol>
+                            <li>On your Mac, choose Apple menu  > System Settings, then click Privacy & Security in the sidebar. (You may need to scroll down.)</li>
+                            <li>Go to Security, then click Open.</li>
+                            <li>Click Open Anyway.</li>
+                            <li>This button is available for about an hour after you try to open the app.</li>
+                            <li>Enter your login password, then click OK.</li>
+                        </ol>
+                        The app is saved as an exception to your security settings and you can open it in the future by double-clicking it, just as you can any authorised app.
+                    </div>
+                </div>
+
+                <p>If your anti-virus throws a false positive please get in contact with the details of your anti-virus so that I can contact them to have SausageFileConverter added to their whitelist.</p><p>If you experience any other issues please don't hesitate to get in contact with me.</p></p>
         </div>
         <div class="text-center">
             <a href="{% url 'contact:contact' %}" class="btn btn-primary">Contact</a>
         </div>
       </div>
     </div>
+
     {% else %}
       <p>You own no products... YET!</p>
     {% endif %}
