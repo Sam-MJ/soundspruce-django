@@ -23,6 +23,7 @@ class Product(models.Model):
     image = models.ImageField(blank=True, upload_to="images/")
     carousel_image1 = models.ImageField(blank=True, upload_to="images/")
     carousel_image2 = models.ImageField(blank=True, upload_to="images/")
+    lightbox_image1 = models.ImageField(blank=True, upload_to="images/")
     pc_file = models.FileField(storage=protected_files, blank=True)
     mac_x86_file = models.FileField(storage=protected_files, blank=True)
     mac_arm_file = models.FileField(storage=protected_files, blank=True)
