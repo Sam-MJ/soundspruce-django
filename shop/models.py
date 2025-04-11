@@ -41,7 +41,7 @@ class Price(models.Model):
     price = models.IntegerField(default=0)
 
     def get_display_price(self):
-        return "{0:.2f}".format(self.price / 100)
+        return f"{self.price / 100:.2f}"
 
 
 class ProductInstance(models.Model):

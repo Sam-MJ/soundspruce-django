@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = False
 
 DOMAIN_URL = os.getenv("DOMAIN_URL")
-ALLOWED_HOSTS = [".soundspruce.com",]
+ALLOWED_HOSTS = [".soundspruce.com", ] # remove 127.0.0.1 in prod.
 
 CSRF_TRUSTED_ORIGINS = ["https://*.soundspruce.com", "http://*.soundspruce.com"] # remove 1337 in prod
 
@@ -166,8 +166,8 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 2525
 EMAIL_USE_TLS = True
 
-DEFAULT_FROM_EMAIL = "admin@soundspruce.com"
-NOTIFY_EMAIL = "admin@soundspruce.com"
+DEFAULT_FROM_EMAIL = "sam@soundspruce.com"
+NOTIFY_EMAIL = "sam@soundspruce.com"
 
 RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")
 RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY")
