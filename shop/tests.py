@@ -37,7 +37,8 @@ class TestProductInstanceList(TestCase):
             product=purchase.product, purchaser=purchase.user
         )
 
-    def product_exists_in_product_instance_list(self):
+    def test_product_exists_in_product_instance_list(self):
+        """Product exists in library after purchase"""
         response = self.client.get(reverse("shop:product-instance-list"))
 
         self.assertEqual(response.status_code, 200)
@@ -47,3 +48,26 @@ class TestProductInstanceList(TestCase):
         self.assertQuerySetEqual(
             response.context["purchased_products_list"], [self.product_instance]
         )
+
+
+class TestProductDetailList(TestCase):
+
+    def setUp(self):
+        """Create product and price objects"""
+
+        Product.objects.create(
+        name="SausageFileConverter",
+        stripe_product_id="1",
+        slug="sausage-file-converter",
+        category="S",
+        )
+        self.product = Product.objects.get(name="SausageFileConverter")
+
+        Price.objects.create(product=self.product, price=7500, stripe_price_id="1")
+
+    def test_product_detail_exists(self):
+        response = self.client.get(reverse("shop:product-detail", kwargs={"slug": "sausage-file-converter"}))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "SausageFileConverter")
+        self.assertContains(response, "Buy Now")

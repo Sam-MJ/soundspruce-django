@@ -38,7 +38,7 @@
                 <div class="fs-5 mb-5">
                     <span><s style="color:red;">£75</s> £{{ price.get_display_price }} - Early bird pricing until the end of April.</span>
                 </div>
-                    <p class="lead">{{ product.description }}</p>
+                    <p class="lead">{{ product.description|linebreaksbr }}</p>
                     <div class="d-flex">
                         {% if is_owner %}
                         <p>You own this product.</p>

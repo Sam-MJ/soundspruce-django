@@ -9,3 +9,4 @@ protected/
 database/
 testuserdetails.txt
 sent_emails/
+.vscode/
