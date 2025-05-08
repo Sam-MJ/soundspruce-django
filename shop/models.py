@@ -34,13 +34,20 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("shop:product-detail", args=[self.slug])
 
-class ProductDescription(models.Model):
+    def get_ordered_description_sections(self):
+        return self.productdescriptionsection_set.all().order_by('order')
+
+    def get_carousel_images(self):
+        return self.productdescriptionsection_set.filter(section_type="CAROUSEL-IMAGE").order_by("order")
+
+class ProductDescriptionSection(models.Model):
     SECTION_TYPE_CHOICES = [
         ("MAIN", "Main product description"),
         ("SHORT", "Short product description"),
         ("ACCORDION", "Features accordion"),
         ("VIDEO", "Demo video"),
-        ("IMAGE", "Product image")
+        ("CAROUSEL-IMAGE", "Carousel product image"),
+        ("LIGHTBOX-IMAGE", "Lightbox product image")
     ]
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

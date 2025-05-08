@@ -9,7 +9,7 @@ class PriceInlineAdmin(admin.TabularInline):
     extra = 0
 
 class ProductDescriptionInline(admin.StackedInline):
-    model = models.ProductDescription
+    model = models.ProductDescriptionSection
     extra = 0
 
 class ProductDistributableInline(admin.TabularInline):
@@ -20,7 +20,7 @@ class ProductDistributableInline(admin.TabularInline):
 class PriceAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(models.ProductDescription)
+@admin.register(models.ProductDescriptionSection)
 class ProductDescriptionAdmin(admin.ModelAdmin):
     pass
 
