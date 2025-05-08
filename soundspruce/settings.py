@@ -26,10 +26,10 @@ load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 DOMAIN_URL = os.getenv("DOMAIN_URL")
-ALLOWED_HOSTS = [".soundspruce.com", ] # remove 127.0.0.1 in prod.
+ALLOWED_HOSTS = [".soundspruce.com", "127.0.0.1"] # remove 127.0.0.1 in prod.
 
 CSRF_TRUSTED_ORIGINS = ["https://*.soundspruce.com", "http://*.soundspruce.com"] # remove 1337 in prod
 

@@ -34,6 +34,39 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("shop:product-detail", args=[self.slug])
 
+class ProductDescription(models.Model):
+    SECTION_TYPE_CHOICES = [
+        ("MAIN", "Main product description"),
+        ("SHORT", "Short product description"),
+        ("ACCORDION", "Features accordion"),
+        ("VIDEO", "Demo video"),
+        ("IMAGE", "Product image")
+    ]
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    title = models.CharField(blank=True, max_length=120)
+    content = models.TextField(blank=False)
+
+    image = models.ImageField(blank=True, upload_to="images/")
+    video = models.URLField(blank=True)
+
+    section_type = models.CharField(blank=False, choices=SECTION_TYPE_CHOICES, max_length=120)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
+class ProductDistributable(models.Model):
+    DISTRIBUTABLE_TYPE_CHOICES = [
+        ("PC", "PC executable"),
+        ("MAC_ARM", "Mac silicon executable"),
+        ("MAC_INTEL", " Mac Intel executable"),
+    ]
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    type = models.CharField(blank=False, choices=DISTRIBUTABLE_TYPE_CHOICES, max_length=120)
+    file = models.FileField(storage=protected_files, blank=True)
+
 
 class Price(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)

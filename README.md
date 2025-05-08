@@ -5,6 +5,7 @@ SoundSpruce, an E-Commerce web store to sell my SausageFileConverter product.
 * Django
 * HTML/CSS/Bootstrap5
 * Stripe
+* ReCaptcha
 
 Visually it's quite basic and is still a work in progress, but it has all of the functionality that I need.
 * Collect payments via stripe checkout

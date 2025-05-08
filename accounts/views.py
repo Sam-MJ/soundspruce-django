@@ -43,14 +43,6 @@ class PasswordResetView(auth_views.PasswordResetView):
     form_class = forms.CustomPasswordResetForm
 
 
-""" class PasswordChangeView(auth_views.PasswordChangeView):
-    success_url = reverse_lazy("password_change_done") """
-
-
-""" class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
-    success_url = reverse_lazy("password_reset") """
-
-
 class UserRegisterView(SuccessMessageMixin, CreateView):
     template_name = "accounts/register.html"
     success_url = reverse_lazy("pages:home")
