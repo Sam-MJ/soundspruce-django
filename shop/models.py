@@ -34,11 +34,14 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse("shop:product-detail", args=[self.slug])
 
-    def get_ordered_description_sections(self):
-        return self.productdescriptionsection_set.all().order_by('order')
+    def get_accordion_sections(self):
+        return self.productdescriptionsection_set.filter(section_type="ACCORDION").order_by("order")
 
     def get_carousel_images(self):
         return self.productdescriptionsection_set.filter(section_type="CAROUSEL-IMAGE").order_by("order")
+
+    def get_demo_videos(self):
+        return self.productdescriptionsection_set.filter(section_type="VIDEO").order_by("order")
 
 class ProductDescriptionSection(models.Model):
     SECTION_TYPE_CHOICES = [
@@ -52,7 +55,7 @@ class ProductDescriptionSection(models.Model):
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     title = models.CharField(blank=True, max_length=120)
-    content = models.TextField(blank=False)
+    content = models.TextField(blank=True)
 
     image = models.ImageField(blank=True, upload_to="images/")
     video = models.URLField(blank=True)

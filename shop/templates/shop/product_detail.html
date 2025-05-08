@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load custom_tags %}
 {% block content %}
 
 {% with carousel_images=product.get_carousel_images %}
@@ -24,7 +24,8 @@
                         {% for image in carousel_images %}
                             {% if image.image %}
                             <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                <a href="/media/{{ image.image }}" data-toggle="lightbox"class="d-block w-100 img-fluid" data-caption="{{ image.title }}">
+                                <a href="/media/{{ image.image }}" data-toggle="lightbox" class="d-block w-100 img-fluid" data-caption="{{ image.title }}">
+                                    {# maybe add lightbox image to the same model so it's tied #}
                                     <img src="/media/{{ image.image }}" class="img-fluid" alt="{{ image.title }}">
                                 </a>
                             </div>
@@ -44,6 +45,7 @@
             {% else %}
                 missing carousel_images
             {% endif %}
+{% endwith %}
             <div class="col-md-6">
                 <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
                 <div class="fs-5 mb-5">
@@ -52,7 +54,7 @@
                 <p class="lead">{{ product.description|linebreaksbr }}</p>
                 <div class="d-flex">
                     {% if is_owner %}
-                    <p>You own this product.</p>
+                        <p>You own this product.</p>
                     {% else %}
                     <div>
                         {% include 'purchase/buy-btn-form.html' with product=product is_auth=is_auth %}
@@ -66,58 +68,51 @@
 </section>
 
 <section>
-
-    <div class="container px-4 accordion" id="accordionExample">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              Filter files to process
-            </button>
-          </h2>
-          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <strong>Filter the files that you want to process though:</strong>
-              <ul>
-                <li>Keyword matching - Use comma separated keywords to remove categories of files</li>
-                <li>Double click to remove - Remove individual files or folders</li>
-                <li>Maximum file length - Set only short files to be included in sausage files, </li>
-              </ul>
-            </div>
-          </div>
+{% with accordion_sections=product.get_accordion_sections %}
+    {% if accordion_sections %}
+        <div class="container px-4 accordion" id="productFeatureAccordion">
+            {% for section in accordion_sections %}
+                {% with heading_id="heading-"|concat_prefix_to_id:section.id %}
+                {% with accordion_id="collapse-"|concat_prefix_to_id:section.id %}
+                <div class="accordion-item">
+                <h2 class="accordion-header" id="{{ heading_id }}">
+                    <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#{{ accordion_id }}"
+                            aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                            aria-controls="{{ accordion_id }}">
+                    {{ section.title }}
+                    </button>
+                </h2>
+                <div id="{{ accordion_id }}"
+                    class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                    aria-labelledby="{{ heading_id }}"
+                    data-bs-parent="#productFeatureAccordion">
+                    <div class="accordion-body">
+                        {{ section.content|safe }}
+                    </div>
+                </div>
+                {% endwith %}
+                {% endwith %}
+            {% endfor %}
         </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingTwo">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-              Copy unprocessed files
-            </button>
-          </h2>
-          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-              <strong>Avoid losing</strong> Unprocessed audio files, Cover Art, EULAs, XLSX and other loose files that come with sound libraries by <strong>automatically</strong> copying them over to the output folder.
-            </div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingThree">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              Processed Files Reporting
-            </button>
-          </h2>
-          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                As well as the real time error logging pane, SausageFileConverter generates a report to help you <strong>ensure</strong> the correct variations have been concatenated into each file.
-            </div>
-          </div>
-        </div>
-      </div>
+    {% endif %}
+{% endwith %}
 </section>
 
 <section class="py-5">
-    <div class="container px-4">
-            <div class="ratio ratio-16x9 col-md-6">
-                <iframe src="{{ product.demo_video }}" title="YouTube video player" frameborder="0" allow="clipboard-write; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-    </div>
-</section>
+{% with product_videos=product.get_demo_videos %}
+    {% if product_videos %}
+        {% for video in product_videos %}
+        <div class="container px-4">
+                <div class="ratio ratio-16x9 col-md-6">
+                    <iframe src="{{ video.video }}" title="{{ video.title }}" frameborder="0" allow="clipboard-write; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+        </div>
+        {% endfor %}
+    {% endif %}
 {% endwith %}
+</section>
+
 {% endblock content %}
