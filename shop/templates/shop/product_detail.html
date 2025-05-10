@@ -22,11 +22,11 @@
                     </div>
                     <div class="carousel-inner">
                         {% for image in carousel_images %}
-                            {% if image.image %}
+                            {% if image.carousel_image %}
                             <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                <a href="/media/{{ image.image }}" data-toggle="lightbox" class="d-block w-100 img-fluid" data-caption="{{ image.title }}">
+                                <a href="/media/{% if image.lightbox_image %}{{ image.lightbox_image }}{% else %}{{ image.carousel_image }}{% endif %}" data-toggle="lightbox" class="d-block w-100 img-fluid" data-caption="{{ image.title }}">
                                     {# maybe add lightbox image to the same model so it's tied #}
-                                    <img src="/media/{{ image.image }}" class="img-fluid" alt="{{ image.title }}">
+                                    <img src="/media/{{ image.carousel_image }}" class="img-fluid" alt="{{ image.title }}">
                                 </a>
                             </div>
                             {% endif %}
@@ -51,7 +51,7 @@
                 <div class="fs-5 mb-5">
                     <span><s style="color:red;">£75</s> £{{ price.get_display_price }} - Early bird pricing until the end of May.</span>
                 </div>
-                <p class="lead">{{ product.description|linebreaksbr }}</p>
+                <p class="lead">{{ product.get_product_description.first.content|linebreaksbr }}</p>
                 <div class="d-flex">
                     {% if is_owner %}
                         <p>You own this product.</p>
@@ -75,22 +75,23 @@
                 {% with heading_id="heading-"|concat_prefix_to_id:section.id %}
                 {% with accordion_id="collapse-"|concat_prefix_to_id:section.id %}
                 <div class="accordion-item">
-                <h2 class="accordion-header" id="{{ heading_id }}">
-                    <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}"
-                            type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#{{ accordion_id }}"
-                            aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
-                            aria-controls="{{ accordion_id }}">
-                    {{ section.title }}
-                    </button>
-                </h2>
-                <div id="{{ accordion_id }}"
-                    class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
-                    aria-labelledby="{{ heading_id }}"
-                    data-bs-parent="#productFeatureAccordion">
-                    <div class="accordion-body">
-                        {{ section.content|safe }}
+                    <h2 class="accordion-header" id="{{ heading_id }}">
+                        <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#{{ accordion_id }}"
+                                aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                                aria-controls="{{ accordion_id }}">
+                        {{ section.title }}
+                        </button>
+                    </h2>
+                    <div id="{{ accordion_id }}"
+                        class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                        aria-labelledby="{{ heading_id }}"
+                        data-bs-parent="#productFeatureAccordion">
+                        <div class="accordion-body">
+                            {{ section.content|safe }}
+                        </div>
                     </div>
                 </div>
                 {% endwith %}
@@ -102,7 +103,7 @@
 </section>
 
 <section class="py-5">
-{% with product_videos=product.get_demo_videos %}
+{% with product_videos=product.get_videos %}
     {% if product_videos %}
         {% for video in product_videos %}
         <div class="container px-4">

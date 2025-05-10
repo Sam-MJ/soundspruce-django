@@ -8,10 +8,10 @@
 
       {% for product in product_list %}
       <div class="card mt-2 align-items-center py-4" >
-        <img src="/media/{{ product.image }}" class="card-img-top shadow-drop-2-center" alt="Product Image">
+        <img src="/media/{{ product.get_images.first.image }}" class="card-img-top shadow-drop-2-center" alt="Product Image">
         <div class="card-body">
           <h5 class="card-title">{{ product.name }}</h5>
-          <p class="card-text">{{product.description}}</p>
+          <p class="card-text">{{product.get_product_description.first.content}}</p>
           <div class="d-grid gap-2 col-4 mx-auto">
             <a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-lg">See Details</a>
           </div>

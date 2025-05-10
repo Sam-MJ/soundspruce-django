@@ -4,25 +4,53 @@ from . import models
 
 # Register your models here.
 
+
 class PriceInlineAdmin(admin.TabularInline):
     model = models.Price
-    extra = 0
-
-class ProductDescriptionInline(admin.StackedInline):
-    model = models.ProductDescriptionSection
-    extra = 0
-
-class ProductDistributableInline(admin.TabularInline):
-    model = models.ProductDistributable
     extra = 0
 
 @admin.register(models.Price)
 class PriceAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(models.ProductDescriptionSection)
-class ProductDescriptionAdmin(admin.ModelAdmin):
+# product content
+class ProductContentTextInline(admin.StackedInline):
+    model = models.ProductContentText
+    extra = 0
+
+class ProductContentVideoInline(admin.StackedInline):
+    model = models.ProductContentVideo
+    extra = 0
+
+class ProductContentImageInline(admin.StackedInline):
+    model = models.ProductContentImage
+    extra = 0
+
+class ProductContentCarouselInline(admin.StackedInline):
+    model = models.ProductContentCarousel
+    extra = 0
+
+class ProductDistributableInline(admin.TabularInline):
+    model = models.ProductDistributable
+    extra = 0
+
+@admin.register(models.ProductContentText)
+class ProductContentTextAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(models.ProductContentVideo)
+class ProductContentVideoAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(models.ProductContentImage)
+class ProductContentImageAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(models.ProductContentCarousel)
+class ProductContentCarouselAdmin(admin.ModelAdmin):
+    pass
+
+###
 
 @admin.register(models.ProductDistributable)
 class ProductDistributableAdmin(admin.ModelAdmin):
@@ -30,8 +58,7 @@ class ProductDistributableAdmin(admin.ModelAdmin):
 
 @admin.register(models.Product)
 class ProductAdmin(admin.ModelAdmin):
-    inlines = [PriceInlineAdmin, ProductDescriptionInline, ProductDistributableInline]
-    # prepopulated_fields = {"slug": ("name",)}
+    inlines = [PriceInlineAdmin, ProductContentImageInline, ProductContentTextInline, ProductContentCarouselInline, ProductContentVideoInline, ProductDistributableInline]
 
 # Product Instance Admin
 class ProductInstanceInline(admin.TabularInline):
