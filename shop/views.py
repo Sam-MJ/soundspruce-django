@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 
 from django.views import generic
 
-from shop.models import Product, Price, ProductInstance
+from shop.models import Product, Price, ProductInstance, ProductDistributable
 
 
 class ProductListView(generic.ListView):
@@ -41,45 +41,23 @@ class ProductInstanceList(LoginRequiredMixin, generic.ListView):
 
 
 @login_required()
-def product_download(request, slug, platform):
+def product_download(request, slug, distributable_id):
 
     product = get_object_or_404(Product, slug=slug)
     download_allowed = (
         request.user.productinstance_set.all().filter(product=product).exists()
     )
 
+    distributable_instance = get_object_or_404(ProductDistributable, id=distributable_id, product=product)
+
     if not download_allowed:
         return HttpResponseBadRequest(
             "Bad Request, This product is not on your purchased list."
         )
 
-    if platform == "PC":
-        file_name = product.pc_file.name
+    #NGINX setup
+    response = HttpResponse()
+    response['Content-Disposition'] = f'attachment; filename="{distributable_instance.file.name}'
+    response['X-Accel-Redirect'] = f'/protected/{distributable_instance.file.name}'
 
-        #NGINX setup
-        response = HttpResponse()
-        response['Content-Disposition'] = f'attachment; filename="{file_name}'
-        response['X-Accel-Redirect'] = f'/protected/{file_name}'
-
-        return response
-
-    elif platform == "MAC_X86":
-        file_name = product.mac_x86_file.name
-
-        #NGINX setup
-        response = HttpResponse()
-        response['Content-Disposition'] = f'attachment; filename="{file_name}'
-        response['X-Accel-Redirect'] = f'/protected/{file_name}'
-
-        return response
-
-    elif platform == "MAC_ARM":
-
-        file_name = product.mac_arm_file.name
-
-        #NGINX setup
-        response = HttpResponse()
-        response['Content-Disposition'] = f'attachment; filename="{file_name}'
-        response['X-Accel-Redirect'] = f'/protected/{file_name}'
-
-        return response
+    return response

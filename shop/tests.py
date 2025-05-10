@@ -1,8 +1,10 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
+
 
 # Create your tests here.
-from shop.models import Product, ProductInstance, Price
+from shop.models import Product, ProductInstance, Price, ProductDistributable
 from purchase.models import Purchase
 from accounts.models import User
 
@@ -35,6 +37,11 @@ class TestProductInstanceList(TestCase):
 
         self.product_instance = ProductInstance.objects.create(
             product=purchase.product, purchaser=purchase.user
+        )
+
+        mock_file = SimpleUploadedFile("SausageFileConverter_1.3.3.exe", b"this is test content, hello world!")
+        self.product_deliverable = ProductDistributable.objects.create(
+            product=purchase.product, title="PC v1.3.3", file=mock_file
         )
 
     def test_product_exists_in_product_instance_list(self):

@@ -8,37 +8,35 @@
     {% if purchased_products_list %}
     <div class="container">
     {% for productinst in purchased_products_list %}
-        <div class="card my-5 col-sm-4 text-center">
-            <div class="card-header">
-                <a href="{% url 'shop:product-detail' productinst.product.slug %}">{{ productinst.product.name }}</a>
-                <p>Purchase Date: {{ productinst.purchase_date|date:"SHORT_DATE_FORMAT"}}</p>
+        {% with distributables=productinst.product.get_product_distributables %}
+            <div class="card my-5 col-sm-4 text-center">
+                <div class="card-header">
+                    <a href="{% url 'shop:product-detail' productinst.product.slug %}">{{ productinst.product.name }}</a>
+                    <p>Purchase Date: {{ productinst.purchase_date|date:"SHORT_DATE_FORMAT"}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for distributable in distributables %}
+                        {% if distributable %}
+                            {% if 'MAC' not in distributable.type or 'MAC' in distributable.type and productinst.mac_download_allowed %}
+                                <li class="list-group-item d-flex justify-content-around">{{ distributable.title }}
+                                    <form action="{% url 'shop:product-download' productinst.product.slug distributable.id %}">
+                                        <input type="submit" value="Download"/>
+                                    </form>
+                                </li>
+                            {% else %}
+                                <li class="list-group-item">
+                                    To download Mac versions, please contact me for a licence agreement.
+                                </li>
+                            {% endif %}
+                        {% else %}
+                            <p>No distributable for this product has been added yet.</p>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item d-flex justify-content-around">PC Version v1.3.3
-                    <form action="{% url 'shop:product-download' productinst.product.slug 'PC'%}">
-                        <input type="submit" value="Download"/>
-                    </form>
-                </li>
-            {% if productinst.mac_download_allowed %}
-                <li class="list-group-item list-group-item d-flex justify-content-around">Intel Mac v1.3.3
-                    <form action="{% url 'shop:product-download' productinst.product.slug 'MAC_X86' %}">
-                        <input type="submit" value="Download"/>
-                    </form>
-                </li>
-                <li class="list-group-item list-group-item d-flex justify-content-around">ARM Mac v1.3.3
-                    <form action="{% url 'shop:product-download' productinst.product.slug 'MAC_ARM' %}">
-                        <input type="submit" value="Download"/>
-                    </form>
-                </li>
-            {% else %}
-                <li class="list-group-item">
-                    To download Mac versions, please contact me for a licence agreement.
-                </li>
-            {% endif %}
-            </ul>
-        </div>
-      {% endfor %}
-      <!-- antivirus false positive warning -->
+        {% endwith %}
+    {% endfor %}
+    <!-- antivirus false positive warning -->
 
       <div class="alert alert-primary d-flex-column align-items-center" role="alert">
         <div class="card-body" id="exclusiveCollapse">

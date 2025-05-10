@@ -18,10 +18,6 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
     category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
 
-    pc_file = models.FileField(storage=protected_files, blank=True)
-    mac_x86_file = models.FileField(storage=protected_files, blank=True)
-    mac_arm_file = models.FileField(storage=protected_files, blank=True)
-
     def __str__(self) -> str:
         return self.name
 
@@ -42,6 +38,9 @@ class Product(models.Model):
 
     def get_images(self):
         return self.productcontentimage_set.order_by("order")
+
+    def get_product_distributables(self):
+        return self.productdistributable_set.order_by("order")
 
 class ProductContentBlock(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -73,7 +72,7 @@ class ProductContentCarousel(ProductContentBlock):
     lightbox_image = models.ImageField(blank=True, upload_to="images/")
 
 # not yet implemented
-class ProductDistributable(models.Model):
+class ProductDistributable(ProductContentBlock):
 
     DISTRIBUTABLE_TYPE_CHOICES = [
         ("PC", "PC executable"),
@@ -81,9 +80,8 @@ class ProductDistributable(models.Model):
         ("MAC_INTEL", " Mac Intel executable"),
     ]
 
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     type = models.CharField(blank=False, choices=DISTRIBUTABLE_TYPE_CHOICES, max_length=120)
-    file = models.FileField(storage=protected_files, blank=True)
+    file = models.FileField(storage=protected_files, blank=False)
 
 
 class Price(models.Model):

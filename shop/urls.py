@@ -12,5 +12,5 @@ urlpatterns = [
         name="product-instance-list",
     ),
     path("<slug:slug>/", views.product_detail_view, name="product-detail"),
-    path("download/<slug:slug>/<str:platform>/", views.product_download, name="product-download"),
+    path("download/<slug:slug>/<str:distributable_id>/", views.product_download, name="product-download"),
 ]
