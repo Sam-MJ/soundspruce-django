@@ -8,7 +8,6 @@ import stripe.error
 from shop.models import Product, Price, ProductInstance
 from purchase.models import Purchase
 import stripe
-import logging
 
 from soundspruce.settings import DOMAIN_URL, STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET
 
@@ -17,6 +16,7 @@ stripe.api_key = STRIPE_SECRET_KEY
 
 class SuccessView(TemplateView):
     template_name = "purchase/success.html"
+    extra_context = {"title": "Purchase - Success"}
     # thank you, and re-direct to product-instance list
 
 

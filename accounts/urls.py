@@ -4,44 +4,43 @@ from . import views
 
 
 urlpatterns = [
-    # auth_views.LoginView for default, views.LogicView and uncomment LoginView in views for email?
-    path("register/login/", views.LoginView.as_view(), name="login"),
-    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path("register/login", views.LoginView.as_view(), name="login"),
+    path("logout", auth_views.LogoutView.as_view(), name="logout"),
     path(
-        "password_change/",
+        "password_change",
         auth_views.PasswordChangeView.as_view(),
         name="password_change",
     ),
     path(
-        "password_change/done/",
+        "password_change/done",
         auth_views.PasswordChangeDoneView.as_view(),
         name="password_change_done",
     ),
     path(
-        "password_reset/",
+        "password_reset",
         views.PasswordResetView.as_view(),
         name="password_reset",
     ),
     path(
-        "password_reset/done/",
+        "password_reset/done",
         auth_views.PasswordResetDoneView.as_view(),
         name="password_reset_done",
     ),
     path(
-        "reset/<uidb64>/<token>/",
+        "reset/<uidb64>/<token>",
         auth_views.PasswordResetConfirmView.as_view(),
         name="password_reset_confirm",
     ),
     path(
-        "reset/done/",
+        "reset/done",
         auth_views.PasswordResetCompleteView.as_view(),
         name="password_reset_complete",
     ),
-    path("register/", views.UserRegisterView.as_view(), name="register"),
+    path("register", views.UserRegisterView.as_view(), name="register"),
     path(
-        "register/confirm/<uidb64>/<token>/",
+        "register/confirm/<uidb64>/<token>",
         views.RegisterConfirmView.as_view(),
         name="register_confirm",
     ),
-    path("users/<int:pk>/", views.UserDetailView.as_view(), name="user_detail"),
+    path("users/<int:pk>", views.UserDetailView.as_view(), name="user_detail"),
 ]

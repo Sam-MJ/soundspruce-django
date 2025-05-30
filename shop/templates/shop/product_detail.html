@@ -25,7 +25,6 @@
                             {% if image.carousel_image %}
                             <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                 <a href="/media/{% if image.lightbox_image %}{{ image.lightbox_image }}{% else %}{{ image.carousel_image }}{% endif %}" data-toggle="lightbox" class="d-block w-100 img-fluid" data-caption="{{ image.title }}">
-                                    {# maybe add lightbox image to the same model so it's tied #}
                                     <img src="/media/{{ image.carousel_image }}" class="img-fluid" alt="{{ image.title }}">
                                 </a>
                             </div>
@@ -49,7 +48,7 @@
             <div class="col-md-6">
                 <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
                 <div class="fs-5 mb-5">
-                    <span><s style="color:red;">£75</s> £{{ price.get_display_price }} - Early bird pricing until the end of May.</span>
+                    <span><s style="color:red;">£75</s> £{{ price.get_display_price }} - Early bird pricing until the end of June.</span>
                 </div>
                 <p class="lead">{{ product.get_product_description.first.content|linebreaksbr }}</p>
                 <div class="d-flex">

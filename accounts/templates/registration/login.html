@@ -9,9 +9,9 @@
   {% if next %}
     {% if user.is_authenticated %}
     <h1 class="display-5">Your account doesn't have access to this page. To proceed,
-      please login with an account that has access.</h1>
+      please log in with an account that has access.</h1>
     {% else %}
-      <h1 class="display-5">Please login to continue</h1>
+      <h1 class="display-5">Please log in to continue</h1>
     {% endif %}
   {% else %}
     <h1 class="display-5">Log in</h1>
@@ -20,7 +20,7 @@
   <form method="post" action="{% url 'login' %}" class="form-signin">
     {% csrf_token %}
     {{ form|crispy }}
-    <input class="btn btn-primary" type="submit" value="login">
+    <input class="btn btn-primary" type="submit" value="Log In">
     <input type="hidden" name="next" value="{{ next }}">
   </form>
 

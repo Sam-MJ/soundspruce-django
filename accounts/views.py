@@ -15,6 +15,7 @@ from accounts.models import User
 
 class LoginView(auth_views.LoginView):
     form_class = forms.LoginForm
+    extra_context = {"title": "Log In"}
 
     def get_redirect_url(self):
         redirect_to = self.request.POST.get(
@@ -48,6 +49,7 @@ class UserRegisterView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy("pages:home")
     form_class = forms.UserRegisterForm
     success_message = "Your profile was created successfully"
+    extra_context = {"title": "Register"}
 
     def form_valid(self, form: BaseForm) -> HttpResponse:
         valid = super(UserRegisterView, self).form_valid(form)

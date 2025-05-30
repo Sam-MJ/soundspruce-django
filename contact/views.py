@@ -13,6 +13,7 @@ from contact.models import Enquiry, WaitList
 class ContactView(FormView):
     template_name = "contact/contact.html"
     form_class = ContactForm
+    extra_context = {"title": "Contact"}
 
     def form_valid(self, form) -> HttpResponse:
         first_name = form.cleaned_data.get("first_name")
@@ -53,3 +54,4 @@ class WaitListView(CreateView):
 
 class SuccessView(TemplateView):
     template_name = "contact/success.html"
+    extra_context = {"title": "Contact - Success"}

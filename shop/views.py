@@ -15,6 +15,7 @@ from shop.models import Product, Price, ProductInstance, ProductDistributable
 
 class ProductListView(generic.ListView):
     model = Product
+    extra_context = {"title": "Shop"}
 
 
 def product_detail_view(request, slug):
