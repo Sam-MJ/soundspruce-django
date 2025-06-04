@@ -28,7 +28,7 @@ class LoginView(auth_views.LoginView):
         if redirect_to and "/purchase/checkout/" in redirect_to:
             new_url = redirect_to.split("/")
             new_url = [section for section in new_url if section]
-            redirect_to = "/shop/" + new_url[-1] + "/"
+            redirect_to = "/shop/" + new_url[-1]
 
         url_is_safe = url_has_allowed_host_and_scheme(
         url=redirect_to,

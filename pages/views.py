@@ -13,6 +13,6 @@ class AboutView(TemplateView):
     template_name = "pages/about.html"
     extra_context = {"title": "About"}
 
-
-class TestView(TemplateView):
-    template_name = "pages/index.html"
+class RefundPolicy(TemplateView):
+    template_name = "pages/refund_policy.html"
+    extra_context = {"title":"Refund Policy"}
